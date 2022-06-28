@@ -17,6 +17,9 @@ app.post("/events", (req, res) => {
   axios
     .post("http://localhost:4002/events", event)
     .catch(() => console.log("Query service is down..."));
+  axios
+    .post("http://localhost:4003/events", event)
+    .catch(() => console.log("Moderation service is down..."));
 
   res.status(200).send({ message: "event sent" });
 });

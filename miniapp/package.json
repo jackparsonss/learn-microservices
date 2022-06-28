@@ -1,0 +1,15 @@
+{
+  "name": "miniapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "concurrently \"npm run start --prefix client\" \"npm run dev --prefix query\" \"npm run dev --prefix posts\" \"npm run dev --prefix comments\" \"npm run dev --prefix moderation\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.2.2"
+  }
+}
