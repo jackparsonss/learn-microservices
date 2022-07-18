@@ -7,6 +7,8 @@ import { signinRouter } from "./routes/signin";
 import { signoutRouter } from "./routes/signout";
 import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
+import mongoose from "mongoose";
+import { DatabaseConnectionError } from "./errors/database-connection-error";
 
 const app = express();
 
@@ -24,6 +26,18 @@ app.all("*", () => {
 
 app.use(errorHandler);
 
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
-});
+const start = async () => {
+  try {
+    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
+    console.log("Connected to database");
+  } catch (e) {
+    console.error(e);
+    throw new DatabaseConnectionError();
+  }
+
+  app.listen(3000, () => {
+    console.log("Listening on port 3000");
+  });
+};
+
+start();
